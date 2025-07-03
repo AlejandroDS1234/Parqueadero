@@ -50,42 +50,42 @@ while True:
                 hora_entrada_=(hora_entrada,minutos_entrada)
                 break 
         while True:
-            fecha_entrada_dia,fecha_entrada_mes=input("\nIngrese la fecha de entrada (DD/MM): ").split("/") #Las dos variables que forman un elemento, se dividen y se asigna la variable 1 al elemento 1 y la variable 2 al elemento 2
-            if len(fecha_entrada_dia)>2 or len(fecha_entrada_dia)<1 or len(fecha_entrada_mes)>2 or len(fecha_entrada_mes)<1:
+            fecha_entrada_dia,fecha_entrada_mes=input("\nIngrese la fecha de entrada (DD/MM): ").split("/") #Se nombran 2 variables a las que se les asigna un input, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
+            if len(fecha_entrada_dia)>2 or len(fecha_entrada_dia)<1 or len(fecha_entrada_mes)>2 or len(fecha_entrada_mes)<1: #Creamos 2 len para cada variable para que cuenten sus dígitos y reinicie el bucle cuando el usuario ingrese más de 2 dígitos o menos de 1 dígito 
                 print("Fecha mal ingresada, tiene que ser en formato DD/MM, vuelva a intentarlo\n")
                 continue
             if len(fecha_entrada_dia)==1:
-                fecha_entrada_dia=f"{0}{fecha_entrada_dia}"
+                fecha_entrada_dia=f"{0}{fecha_entrada_dia}" #Se cuentan los caracteres de la variable, donde si es igual a 1, se le agregue un 0 antes de imprimir el dígito que ingresó el usuario (ej: pasa de 9 a 09 -> 09/11)
             if len(fecha_entrada_mes)==1:
-                fecha_entrada_mes=f"{0}{fecha_entrada_mes}"
+                fecha_entrada_mes=f"{0}{fecha_entrada_mes}" #Se cuentan los caracteres de la variable, donde si es igual a 1, se le agregue un 0 antes de imprimir el dígito que ingresó el usuario (ej: pasa de 3 a 03 -> 23/04)
             
             #meses
-            if int(fecha_entrada_mes)<=12 and int(fecha_entrada_mes)>=1:
-                if fecha_entrada_mes=="01" or fecha_entrada_mes=="03" or fecha_entrada_mes=="05" or fecha_entrada_mes=="07" or fecha_entrada_mes=="08" or fecha_entrada_mes=="10" or fecha_entrada_mes=="12":
+            if int(fecha_entrada_mes)<=12 and int(fecha_entrada_mes)>=1: #Se asegura de que el número del mes ingresado por el usuario esté entre el 1 y el 12
+                if fecha_entrada_mes=="01" or fecha_entrada_mes=="03" or fecha_entrada_mes=="05" or fecha_entrada_mes=="07" or fecha_entrada_mes=="08" or fecha_entrada_mes=="10" or fecha_entrada_mes=="12": #Mira sí el mes ingresado por el usuario es alguno de los que tienen 31 días
                     if int(fecha_entrada_dia)>31 or int(fecha_entrada_dia)<1:
-                        print("Fecha incorrecta, el mes tiene 31 dias, vuelva a intentarlo\n")
-                        continue
+                        print("Fecha incorrecta, el mes tiene 31 dias, vuelva a intentarlo\n") 
+                        continue #Hace que el usuario vuelva a ingresar la fecha cuando el día que ingresa es mayor a 31 o menor a 1 (negativo)
                     else:
-                        break
-                elif fecha_entrada_mes=="04" or fecha_entrada_mes=="06" or fecha_entrada_mes=="09" or fecha_entrada_mes=="11":
+                        break #Rompe el bucle para continuar cuando el usuario ingresa la fecha correctamente
+                elif fecha_entrada_mes=="04" or fecha_entrada_mes=="06" or fecha_entrada_mes=="09" or fecha_entrada_mes=="11": #Mira si el mes ingresado por el usuario es uno de los que tienen 30 días
                     if int(fecha_entrada_dia)>30 or int(fecha_entrada_dia)<1:
                         print("Fecha incorrecta, el mes tiene 30 dias, vuelva a intentar\n")
-                        continue
+                        continue #Hace que el usuario vuelva a ingresar la fecha cuando el día que ingresa es mayor a 30 o menor a 1 (negativo)
                     else:
-                        break
-                elif fecha_entrada_mes=="02":
+                        break #Rompe el bucle para continuar cuando el usuario ingresa la fecha correctamente
+                elif fecha_entrada_mes=="02": #Mira sí el mes que ingresó el usuario tiene 29 días (Febrero/Año biciesto)
                     if int(fecha_entrada_dia)>29 or int(fecha_entrada_dia)<1:
                         print("Fecha incorrecta, el mes tiene maximo 29 dias, vuelva a intentar\n")
-                        continue
+                        continue #Hace que el usuario vuelva a ingresar la fecha cuando el día que ingresa es mayor a 29 o menor a 1 (negativo)
                     else:
-                        break
+                        break #Rompe el bucle cuando el usuario ingresa la fecha correctamente
             else:
                 print("fecha incorrecta, el mes no existe, vuelva a intentar\n")
-                continue
+                continue  #Hace que el usuario vuelva a ingresar la fecha cuando ingresa un número que no pertenece a ningún mes
         fecha_entrada=(fecha_entrada_dia,fecha_entrada_mes)
         
         
-        vehiculos.append((placa,tipo,hora_entrada_,fecha_entrada))
+        vehiculos.append((placa,tipo,hora_entrada_,fecha_entrada)) #V
         print(f"\nLos datos ingresados son:\nPlaca: {placa}\nTipo: {tipo}\nHora de entrada: {hora_entrada_[0]}:{hora_entrada_[1]}\nFecha de entrada: {fecha_entrada[0]}/{fecha_entrada[1]}")
             
     #salida
