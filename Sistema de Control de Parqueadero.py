@@ -6,7 +6,7 @@ meses={"01":31,"02":29,"03":31,"04":30,"05":31,"06":30,"07":31,"08":31,"09":30,"
 while True:
     print("\n\n")
     print("PARQUEADERO".center(100,"="))
-    print("\nPara entrar un nuevo vehiculo al parqueadero ingrese 'E'\n Para sacar un vehiculo del parqueadero ingrese 'S'\n Para ver mas opciones del programa ingrese 'X'\n")
+    print("\n Para entrar un nuevo vehiculo al parqueadero ingrese 'E'\n Para sacar un vehiculo del parqueadero ingrese 'S'\n Para ver mas opciones del programa ingrese 'X'\n")
     entrada=input("\nIngrese la accion que va a realizar: ").upper()
     #entrada
     if entrada=="E":
@@ -279,9 +279,8 @@ while True:
             continue
 
         elif ajustes==4:
-            print("Se cierra el parqueadero".center(50,"="),"\nPrograma finalizado\n")
-
-
-
-
- 
+            print("Se cierra el parqueadero".center(50,"="),"\n\n", f"Programa finalizado".center(50," "))
+            break
+        else:
+            print("Accion no valida, ingrese otra\n")
+            continue
