@@ -6,6 +6,7 @@ meses={"01":31,"02":29,"03":31,"04":30,"05":31,"06":30,"07":31,"08":31,"09":30,"
 while True:
     print("\n\n")
     print("PARQUEADERO".center(100,"="))
+    print(f"\nEl precio por hora para cada vehiculo es:\n{precios}\n")
     print("\n Para entrar un nuevo vehiculo al parqueadero ingrese 'E'\n Para sacar un vehiculo del parqueadero ingrese 'S'\n Para ver mas opciones del programa ingrese 'X'\n")
     entrada=input("\nIngrese la accion que va a realizar: ").upper()
     #entrada
@@ -212,7 +213,7 @@ while True:
                         continue
                 else:
                     contador+=1
-                    if contador>=len(vehiculos):
+                    if contador>len(vehiculos):
                         print("El vehiculo no esta registrado en el parqueadero\n")
                         break
         else:
