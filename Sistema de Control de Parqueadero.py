@@ -1,49 +1,51 @@
-historial=[]
-vehiculos=[]
-precios={"MOTO":1000,"CARRO":2000,"CAMIONETA":2500}
-meses={"01":31,"02":29,"03":31,"04":30,"05":31,"06":30,"07":31,"08":31,"09":30,"10":31,"11":30,"12":31}
+historial=[] #una lista para el historial de los vehiculos ingresados y sus datos de salida
+vehiculos=[] #una lista para los vehiculos ingresados en el parqueadero actualmente
+precios={"MOTO":1000,"CARRO":2000,"CAMIONETA":2500} #precios de los vehiculos por hora
+meses={"01":31,"02":29,"03":31,"04":30,"05":31,"06":30,"07":31,"08":31,"09":30,"10":31,"11":30,"12":31} #cantidad de dias en cada mes
 
 while True:
     print("\n\n")
     print("PARQUEADERO".center(100,"="))
     print(f"\nEl precio por hora para cada vehiculo es:\n{precios}\n")
     print("\n Para entrar un nuevo vehiculo al parqueadero ingrese 'E'\n Para sacar un vehiculo del parqueadero ingrese 'S'\n Para ver mas opciones del programa ingrese 'X'\n")
-    entrada=input("\nIngrese la accion que va a realizar: ").upper()
-    #entrada
-    if entrada=="E":
-        #placa
+    entrada=input("\nIngrese la accion que va a realizar: ").upper() #ingresar que desea hacer el usuario
+    
+    if entrada=="E": #si el usuario desea ingresar un vehiculo
+        
+        
+        #ingresar y verificar la placa
         comprobador_placa=0 #Variable que ayuda a comprobar sí la placa ya está registrada
         while True:
-            if comprobador_placa==1:
+            if comprobador_placa==1: #si se detecto la placa repetida
                 break #Sí la placa ya está registrada, se rompe el bucle y se continúa
-            placa=input("\nIngrese la placa del vehiculo (AAA000): ").upper()
+            placa=input("\nIngrese la placa del vehiculo (AAA000): ").upper() #Le pide al ususario que ingrese la placa del vehiculo y la coloca en mayousculas
             #detectar errores en la placa
-            if len(placa)!=6:#longitud de la placa
+            if len(placa)!=6:#si la longitud de la placa es incorrecta
                 print("Placa no valida vuelva a intentarlo\n") 
                 continue #si detecta un error vuelve al inicio del bucle a pedir el codigo
-            elif placa[0:3].isalpha()==False or placa[3:5].isdigit()==False: #ver los caracteres de la placa
+            elif placa[0:3].isalpha()==False or placa[3:5].isdigit()==False: #si los caracteres de la placan son incorrectos
                 print("Placa no valida vuelva a intentarlo\n")
                 continue #si detecta un error vuelve al inicio del bucle a pedir el codigo
-            else:
+            else: #si no hay ningun error al escribir la placa
                 contador_placa=0 #Contador que recorre la lista de vehículos
                 while True:
-                    if len(vehiculos)==0:
-                        break #Sí no hay vehículos en el parqueadero, se rompe el bucle y se continúa con el siguiente
+                    if len(vehiculos)==0: #Sí no hay vehículos en el parqueadero
+                        break # se rompe el bucle y se continúa con el siguiente
                         
-                    if placa==vehiculos[contador_placa][0]:
+                    if placa==vehiculos[contador_placa][0]: #busca en el indice que da el contador placa para ver si la placa ingresada ya esta en una de las placas ya ingresadas
                         print("El vehiculo ya esta ingresado en el parqueadero, no lo puede ingresar de nuevo\n")
                         comprobador_placa=1 #comprobador placa pasa a ser verdadero indicando que la placa esta repetida
                         break #Sí la placa ya está registrada, se rompe el bucle y se continúa
-                    else:
+                    else: #si la placa del indice actual no es la misma que la ingresada
                         contador_placa+=1 #Incrementa el contador para seguir buscando en la lista de vehículos
-                        if contador_placa>=len(vehiculos):
-                            break #si no hay errores con la placa sale del bucle de pedir la placa y continua con el siguiente
+                        if contador_placa>=len(vehiculos): #si el indice que da el contador_placa es mayor o igual que la cantidad de vehiculos registrados
+                            break #sale del bucle de la placa y continua con el siguiente
             if comprobador_placa==1: #si se detecto una placa repetida vuelve al inicio del bucle
                 continue #Sí la placa ya está, se vuelve a iniciar el bucle para pedir que se ingrese una placa nueva
-            else:
-                break #Sí no se detecta una placa repetida se rompe este bucle y continua con el siguiente
-        if comprobador_placa==1: 
-            continue #Sí se detecta una placa repetida, se vuelve a iniciar el bucle inicial para preguntar si desea ingresar o retirar un vehiculo
+            else: #Sí no se detecta una placa repetida
+                break #se rompe este bucle y continua con el siguiente
+        if comprobador_placa==1:  #Sí se detecta una placa repetida
+            continue #se vuelve a iniciar el bucle inicial para preguntar si desea ingresar o retirar un vehiculo
 
 
 
@@ -55,12 +57,14 @@ while True:
                 break #si es valido sale del bucle de pedir el tipo del vehiculo
             else: #detectar si el vehiculo que se ingreso no esta entre los vehiculos validos
                 print("Tipo de vehiculo no valido, vuelva a intentar\n")
-                continue  #si detecta que no es valido regresa al inicio del bucle a pedir el tipo de vehiculo
+                continue  #regresa al inicio del bucle a pedir el tipo de vehiculo
+            
+        #hora de entrada
         while True:
-            hora_entrada,minutos_entrada=input("\nIngrese la hora de entrada (HH:MM): ").split(":") #Divide la cadena de caracteres en datos según el caracter que se le asignó
-            if int(hora_entrada)>24 or int(hora_entrada)<0 or int(minutos_entrada)>59 or int(minutos_entrada)<0: 
+            hora_entrada,minutos_entrada=input("\nIngrese la hora de entrada (HH:MM): ").split(":") #se le asignan 2 variables a un input() y se divide la cadena de caracteres que da el usuario en el input() en dos datos según el caracter que se le asignó al .split()
+            if int(hora_entrada)>24 or int(hora_entrada)<0 or int(minutos_entrada)>59 or int(minutos_entrada)<0: #si se encuentra un error en la cantidad de horas de la entrada
                 print("Hora no valida, vuelva a intentarlo\n")
-                continue #Sí se cumple una de esas condiciones, se volverá a repetir el bucle por el continue
+                continue #se volverá a repetir el bucle para pedir otra vez la hora por el continue
             elif len(hora_entrada)>2 or len(hora_entrada)<1: #Cuenta los dígitos de la hora de entrada y la hora de salida para asegurarse de que estén bien ingresados los datos
                 print("Hora mal ingresada, tiene que ser en formato 24h, vuelva a intentarlo\n")
                 continue
