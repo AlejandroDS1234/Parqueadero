@@ -32,18 +32,18 @@ while True:
                         
                     if placa==vehiculos[contador_placa][0]:
                         print("El vehiculo ya esta ingresado en el parqueadero, no lo puede ingresar de nuevo\n")
-                        comprobador_placa=1
+                        comprobador_placa=1 #comprobador placa pasa a ser verdadero indicando que la placa esta repetida
                         break #Sí la placa ya está registrada, se rompe el bucle y se continúa
                     else:
                         contador_placa+=1 #Incrementa el contador para seguir buscando en la lista de vehículos
                         if contador_placa>=len(vehiculos):
                             break #si no hay errores con la placa sale del bucle de pedir la placa y continua con el siguiente
-            if comprobador_placa==1:
+            if comprobador_placa==1: #si se detecto una placa repetida vuelve al inicio del bucle
                 continue #Sí la placa ya está, se vuelve a iniciar el bucle para pedir que se ingrese una placa nueva
             else:
-                break #Sí no hay errores con la placa, se rompe el bucle y se continúa
-        if comprobador_placa==1:
-            continue #Sí la placa ya está registrada, se vuelve a iniciar el bucle para pedir que se ingrese una nueva placa
+                break #Sí no se detecta una placa repetida se rompe este bucle y continua con el siguiente
+        if comprobador_placa==1: 
+            continue #Sí se detecta una placa repetida, se vuelve a iniciar el bucle inicial para preguntar si desea ingresar o retirar un vehiculo
 
 
 
