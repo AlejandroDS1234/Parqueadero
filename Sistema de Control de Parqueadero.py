@@ -63,10 +63,10 @@ while True:
         while True:
             hora_entrada,minutos_entrada=input("\nIngrese la hora de entrada (HH:MM): ").split(":") #se le asignan 2 variables a un input() y se divide la cadena de caracteres que da el usuario en el input() en dos datos según el caracter que se le asignó al .split()
             if int(hora_entrada)>24 or int(hora_entrada)<0 or int(minutos_entrada)>59 or int(minutos_entrada)<0: #si se encuentra un error en la cantidad de horas de la entrada
-                print("Hora no valida, vuelva a intentarlo\n")
-                continue #se volverá a repetir el bucle para pedir otra vez la hora por el continue
-            elif len(hora_entrada)>2 or len(hora_entrada)<1: #Cuenta los dígitos de la hora de entrada y la hora de salida para asegurarse de que estén bien ingresados los datos
                 print("Hora mal ingresada, tiene que ser en formato 24h, vuelva a intentarlo\n")
+                continue #se volverá a repetir el bucle para pedir otra vez la hora por el continue
+            elif len(hora_entrada)>2 or len(hora_entrada)<1 or len(minutos_entrada)>2 or len(minutos_entrada)<1: #Cuenta los dígitos de la hora y minutos de entrada para asegurarse de que estén bien ingresados los datos
+                print("Hora no valida, vuelva a intentarlo\n")
                 continue
             else:
                 if len(hora_entrada)==1:
@@ -75,6 +75,7 @@ while True:
                     minutos_entrada=f"{0}{minutos_entrada}" #Sí los minutos que ingresa el usuario sólo tienen 1 dígito, se le agregará un 0 antes de imprimir los minutos (ej: 11:05)
                 hora_entrada_=(hora_entrada,minutos_entrada)
                 break 
+        #Fecha de entrada
         while True:
             fecha_entrada_dia,fecha_entrada_mes=input("\nIngrese la fecha de entrada (DD/MM): ").split("/") #Se nombran 2 variables a las que se les asigna un input, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
             if len(fecha_entrada_dia)>2 or len(fecha_entrada_dia)<1 or len(fecha_entrada_mes)>2 or len(fecha_entrada_mes)<1: #Creamos 2 len para cada variable para que cuenten sus dígitos y reinicie el bucle cuando el usuario ingrese más de 2 dígitos o menos de 1 dígito 
@@ -108,7 +109,7 @@ while True:
             else:
                 print("fecha incorrecta, el mes no existe, vuelva a intentar\n")
                 continue  #Hace que el usuario vuelva a ingresar la fecha cuando ingresa un número que no pertenece a ningún mes
-        fecha_entrada=(fecha_entrada_dia,fecha_entrada_mes)
+        fecha_entrada=(fecha_entrada_dia,fecha_entrada_mes) 
         
         
         vehiculos.append((placa,tipo,hora_entrada_,fecha_entrada)) #Agresa los datos que ingresa el usuario (placa, tipo, hora de entrada y fecha de entrada) a la lista de vehiculos
@@ -116,9 +117,9 @@ while True:
             
     #salida
     elif entrada=="S":
-        if len(vehiculos)!=0:
+        if len(vehiculos)!=0: #si hay vehiculos en el parqueadero
             while True:    
-                placa_salida=input("\nIngrese la placa de su vehiculo para salir: ").upper()
+                placa_salida=input("\nIngrese la placa de su vehiculo para salir: ").upper() #Le pide al usuario que ingrese la placa del vehículo que desea sacar del parqueadero y la coloca en mayúsculas
                 if len(placa_salida)!=6: #longitud de la placa
                     print("Placa no valida vuelva a intentarlo\n") 
                     continue #Sí la longitud de la placa es diferente a 6, vuelve al inicio del bucle a pedir la placa
@@ -133,10 +134,10 @@ while True:
                     while True:
                         hora_salida,minutos_salida=input("\nIngrese la hora de salida (HH:MM): ").split(":") #Divide la cadena de caracteres (la hora) en datos según el caracter que se le asignó
                         if int(hora_salida)>24 or int(hora_salida)<0 or int(minutos_salida)>59 or int(minutos_salida)<0: #verifica que la hora y los minutos ingresados por el usuario estén dentro de los rangos correctos
-                            print("Hora no valida, vuelva a intentarlo\n")
-                            continue #Sí la hora ingresada por el usuario es mayor a 24 o menor a 0, o los minutos son mayores a 59 o menores a 0, se vuelve a pedir la hora de salida
-                        elif len(hora_salida)>2 or len(hora_salida)<1: 
                             print("Hora mal ingresada, tiene que ser en formato 24h, vuelva a intentarlo\n")
+                            continue #Sí la hora ingresada por el usuario es mayor a 24 o menor a 0, o los minutos son mayores a 59 o menores a 0, se vuelve a pedir la hora de salida
+                        elif len(hora_salida)>2 or len(hora_salida)<1 or len(minutos_salida)>2 or len(minutos_salida)<1: 
+                            print("Hora no valida, vuelva a intentarlo\n")
                             continue #Sí los caracteres de la hora ingresada por el usuario son mayor a 2 o menor a 1, se vuelve a repetir el bucle para pedir la hora de salida de nuevo
                         else:
                             if len(hora_salida)==1: #Cuenta los caracteres de la variable, donde si es igual a 1, se le agregue un 0 antes de imprimir la hora (ej: pasa de 3 a 03 -> 03:30)
