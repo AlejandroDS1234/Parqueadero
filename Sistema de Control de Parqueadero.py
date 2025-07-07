@@ -318,6 +318,7 @@ while True:
             while ajustes_dia_reporte<len(historial): #Recorre el historial de vehículos para buscar los reportes del día especificado
                 if historial[ajustes_dia_reporte][1][2]==fecha_ajustes: #Verifica que alguna fecha del historial de reportes coincida con la fecha ingresada por el usuario
                     dia_reporte.append(historial[ajustes_dia_reporte][1][0]) #Agrega el total a pagar del reporte del día especificado a la lista
+                    print(dia_reporte)               
                 else:
                     ajustes_dia_reporte+=1 #Incrementa el contador para seguir buscando en el historial de reportes
             if len(dia_reporte)==0:
