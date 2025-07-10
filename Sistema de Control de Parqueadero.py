@@ -61,7 +61,12 @@ while True:
             
         #hora de entrada
         while True:
-            hora_entrada,minutos_entrada=input("\nIngrese la hora de entrada (HH:MM): ").split(":") #se le asignan 2 variables a un input() y se divide la cadena de caracteres que da el usuario en el input() en dos datos según el caracter que se le asignó al .split()
+            while True:
+                try:
+                    hora_entrada,minutos_entrada=input("\nIngrese la hora de entrada (HH:MM): ").split(":") #se le asignan 2 variables a un input() y se divide la cadena de caracteres que da el usuario en el input() en dos datos según el caracter que se le asignó al .split()
+                    break                
+                except ValueError:
+                    print("Por favor ingrese la informacion en el formato pedido")           
             if int(hora_entrada)>24 or int(hora_entrada)<0 or int(minutos_entrada)>59 or int(minutos_entrada)<0: #si se encuentra un error en la cantidad de horas de la entrada
                 print("Hora mal ingresada, tiene que ser en formato 24h, vuelva a intentarlo\n")
                 continue #se volverá a repetir el bucle para pedir otra vez la hora por el continue
@@ -77,7 +82,12 @@ while True:
                 break 
         #Fecha de entrada
         while True:
-            fecha_entrada_dia,fecha_entrada_mes=input("\nIngrese la fecha de entrada (DD/MM): ").split("/") #Se nombran 2 variables a las que se les asigna un input, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
+            while True:
+                try:
+                    fecha_entrada_dia,fecha_entrada_mes=input("\nIngrese la fecha de entrada (DD/MM): ").split("/") #Se nombran 2 variables a las que se les asigna un input, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
+                    break              
+                except ValueError:   
+                    print("Por favor ingrese la informacion en el formato pedido")       
             if len(fecha_entrada_dia)>2 or len(fecha_entrada_dia)<1 or len(fecha_entrada_mes)>2 or len(fecha_entrada_mes)<1: #Creamos 2 len para cada variable para que cuenten sus dígitos y reinicie el bucle cuando el usuario ingrese más de 2 dígitos o menos de 1 dígito 
                 print("Fecha mal ingresada, tiene que ser en formato DD/MM, vuelva a intentarlo\n")
                 continue
@@ -132,7 +142,12 @@ while True:
             while True:
                 if vehiculos[contador][0]==placa_salida: #verifica que la placa de salida que ingresó el usuario esté en la lista de vehiculos
                     while True:
-                        hora_salida,minutos_salida=input("\nIngrese la hora de salida (HH:MM): ").split(":") #Divide la cadena de caracteres (la hora) en datos según el caracter que se le asignó
+                        while True:
+                            try:
+                                hora_salida,minutos_salida=input("\nIngrese la hora de salida (HH:MM): ").split(":") #Divide la cadena de caracteres (la hora) en datos según el caracter que se le asignó
+                                break
+                            except:
+                                print("Por favor ingrese la informacion en el formato pedido")
                         if int(hora_salida)>24 or int(hora_salida)<0 or int(minutos_salida)>59 or int(minutos_salida)<0: #verifica que la hora y los minutos ingresados por el usuario estén dentro de los rangos correctos
                             print("Hora mal ingresada, tiene que ser en formato 24h, vuelva a intentarlo\n")
                             continue #Sí la hora ingresada por el usuario es mayor a 24 o menor a 0, o los minutos son mayores a 59 o menores a 0, se vuelve a pedir la hora de salida
