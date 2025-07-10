@@ -88,7 +88,7 @@ while True:
             while True:#bucle para pedir el mes
                 try:#Intenta un bloque de codigo
                     fecha_entrada_dia,fecha_entrada_mes=input("\nIngrese la fecha de entrada (DD/MM): ").split("/") #Se nombran 2 variables a las que se les asigna un input, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
-                    if fecha_ajustes_dia.isdigit() and fecha_ajustes_mes.isdigit():#si las variables son un numero
+                    if fecha_entrada_dia.isdigit() and fecha_entrada_mes.isdigit():#si las variables son un numero
                         break#sale del bucle para pedir la hora
                     else:
                         print("Por favor ingrese una fecha valida")        
