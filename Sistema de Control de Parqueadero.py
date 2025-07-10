@@ -61,12 +61,12 @@ while True:
             
         #hora de entrada
         while True:
-            while True:
-                try:
+            while True:#bucle para pedir la hora 
+                try:#Intentar el bloque de codigo
                     hora_entrada,minutos_entrada=input("\nIngrese la hora de entrada (HH:MM): ").split(":") #se le asignan 2 variables a un input() y se divide la cadena de caracteres que da el usuario en el input() en dos datos según el caracter que se le asignó al .split()
-                    break                
-                except ValueError:
-                    print("Por favor ingrese la informacion en el formato pedido")           
+                    break#sale del bucle para pedir la hora
+                except ValueError:#si en alguna parte del bloque de codigo en el try da un ValueError se ejecuta el bloque de codigo del except
+                    print("Por favor ingrese la informacion en el formato pedido")#indica el error y se repite el bucle       
             if int(hora_entrada)>24 or int(hora_entrada)<0 or int(minutos_entrada)>59 or int(minutos_entrada)<0: #si se encuentra un error en la cantidad de horas de la entrada
                 print("Hora mal ingresada, tiene que ser en formato 24h, vuelva a intentarlo\n")
                 continue #se volverá a repetir el bucle para pedir otra vez la hora por el continue
@@ -82,12 +82,12 @@ while True:
                 break 
         #Fecha de entrada
         while True:
-            while True:
-                try:
+            while True:#bucle para pedir el mes
+                try:#Intenta un bloque de codigo
                     fecha_entrada_dia,fecha_entrada_mes=input("\nIngrese la fecha de entrada (DD/MM): ").split("/") #Se nombran 2 variables a las que se les asigna un input, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
-                    break              
-                except ValueError:   
-                    print("Por favor ingrese la informacion en el formato pedido")       
+                    break   #sale del bucle para pedir el mes           
+                except ValueError:   #si en alguna parte del bloque de codigo en el try da un ValueError se ejecuta el bloque de codigo del except
+                    print("Por favor ingrese la informacion en el formato pedido")   #indica el error    
             if len(fecha_entrada_dia)>2 or len(fecha_entrada_dia)<1 or len(fecha_entrada_mes)>2 or len(fecha_entrada_mes)<1: #Creamos 2 len para cada variable para que cuenten sus dígitos y reinicie el bucle cuando el usuario ingrese más de 2 dígitos o menos de 1 dígito 
                 print("Fecha mal ingresada, tiene que ser en formato DD/MM, vuelva a intentarlo\n")
                 continue
@@ -142,12 +142,12 @@ while True:
             while True:
                 if vehiculos[contador][0]==placa_salida: #verifica que la placa de salida que ingresó el usuario esté en la lista de vehiculos
                     while True:
-                        while True:
-                            try:
+                        while True:#bucle para pedir la hora
+                            try:#Intenta un bloque de codigo
                                 hora_salida,minutos_salida=input("\nIngrese la hora de salida (HH:MM): ").split(":") #Divide la cadena de caracteres (la hora) en datos según el caracter que se le asignó
-                                break
-                            except:
-                                print("Por favor ingrese la informacion en el formato pedido")
+                                break#sale del bucle para pedir la hora
+                            except:#si en alguna parte del bloque de codigo en el try da un ValueError se ejecuta el bloque de codigo del except
+                                print("Por favor ingrese la informacion en el formato pedido")#indica el error
                         if int(hora_salida)>24 or int(hora_salida)<0 or int(minutos_salida)>59 or int(minutos_salida)<0: #verifica que la hora y los minutos ingresados por el usuario estén dentro de los rangos correctos
                             print("Hora mal ingresada, tiene que ser en formato 24h, vuelva a intentarlo\n")
                             continue #Sí la hora ingresada por el usuario es mayor a 24 o menor a 0, o los minutos son mayores a 59 o menores a 0, se vuelve a pedir la hora de salida
@@ -162,7 +162,12 @@ while True:
                             hora_salida_=(hora_salida,minutos_salida) #Se crea una variable que almacena la hora de salida y los minutos de salida en una tupla
                             break #Rompe el bucle cuando ya la hora de salida y los minutos de salida son correctos
                     while True:
-                        fecha_salida_dia,fecha_salida_mes=input("\nIngrese la fecha de salida (DD/MM): ").split("/") #Divide la cadena de caracteres (la fecha) en datos según el caracter asignado
+                        while True:#bucle para pedir la fecha
+                            try:#Intenta un bloque de codigo
+                                fecha_salida_dia,fecha_salida_mes=input("\nIngrese la fecha de salida (DD/MM): ").split("/") #Divide la cadena de caracteres (la fecha) en datos según el caracter asignado
+                                break#sale del bucle de pedir la fecha
+                            except ValueError:#si en alguna parte del bloque de codigo en el try da un ValueError se ejecuta el bloque de codigo del except
+                                print("Por favor ingrese la informacion en el formato pedido")#indica el error
                         if len(fecha_salida_dia)>2 or len(fecha_salida_dia)<1 or len(fecha_salida_mes)>2 or len(fecha_salida_mes)<1: 
                             print("Fecha mal ingresada, tiene que ser en formato DD/MM, vuelva a intentarlo\n") 
                             continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de salida de nuevo cuando la fecha ingresada tiene más de 2 dígitos o menos de 1 dígito
@@ -295,7 +300,12 @@ while True:
                 print("\nNo hay ningun vehiculo en el parqueadero") #Sí la cantidad de vehículos es igual a 0, muestra un mensaje indicando que no hay vehículos en el parqueadero 
         elif ajustes==2:
             while True:
-                fecha_ajustes_dia,fecha_ajustes_mes=input("\nIngrese la fecha para el reporte de ingresos diario (DD/MM): ").split("/") #Combina la fecha de ajustes en una variable, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
+                while True:#bucle para pedir la fecha
+                    try:#Intenta un bloque de codigo para pedir la fecha
+                        fecha_ajustes_dia,fecha_ajustes_mes=input("\nIngrese la fecha para el reporte de ingresos diario (DD/MM): ").split("/") #Combina la fecha de ajustes en una variable, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
+                        break#sale del bucle para pedir la fecha
+                    except ValueError:#si en alguna parte del bloque de codigo en el try da un ValueError se ejecuta el bloque de codigo del except
+                        print("Por favor ingrese la informacion en el formato pedido")#indica el error
                 if len(fecha_ajustes_dia)>2 or len(fecha_ajustes_dia)<1 or len(fecha_ajustes_mes)>2 or len(fecha_ajustes_mes)<1: #Cuenta los dígitos de la fecha de ajustes para asegurarse de que estén bien ingresados los datos
                     print("Fecha mal ingresada, tiene que ser en formato DD/MM, vuelva a intentarlo\n")
                     continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de ajustes de nuevo con el formato indicado
