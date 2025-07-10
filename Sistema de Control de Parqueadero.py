@@ -287,7 +287,7 @@ while True:
                         continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese los datos de salida de nuevo cuando la fecha de salida es menor a la fecha de entrada del vehículo
                 else:
                     contador+=1
-                    if contador>len(vehiculos):
+                    if contador>=len(vehiculos):
                         print("El vehiculo no esta registrado en el parqueadero\n")
                         break #Sí no se encuentra la placa del vehículo en la lista de vehículos, se le notificará al usuario y se romperá el bucle 
         else:
