@@ -1,0 +1,282 @@
+from datetime import datetime
+
+historial=[] #una lista para el historial de los vehiculos ingresados y sus datos de salida
+vehiculos=[] #una lista para los vehiculos ingresados en el parqueadero actualmente
+precios={"MOTO":1000,"CARRO":2000,"CAMIONETA":2500} #precios de los vehiculos por hora
+meses={"01":31,"02":29,"03":31,"04":30,"05":31,"06":30,"07":31,"08":31,"09":30,"10":31,"11":30,"12":31} #cantidad de dias en cada mes
+
+while True:
+    print("\n\n")
+    print("PARQUEADERO".center(100,"="))
+    print(f"\nEl precio por hora para cada vehiculo es:\n{precios}\n")
+    print("\n Para entrar un nuevo vehiculo al parqueadero ingrese 'E'\n Para sacar un vehiculo del parqueadero ingrese 'S'\n Para ver mas opciones del programa ingrese 'X'\n")
+    entrada=input("\nIngrese la accion que va a realizar: ").upper() #ingresar que desea hacer el usuario
+    
+    if entrada=="E": #si el usuario desea ingresar un vehiculo
+        
+        
+        #ingresar y verificar la placa
+        comprobador_placa=0 #Variable que ayuda a comprobar sí la placa ya está registrada
+        while True:
+            if comprobador_placa==1: #si se detecto la placa repetida
+                break #Sí la placa ya está registrada, se rompe el bucle y se continúa
+            placa=input("\nIngrese la placa del vehiculo (AAA000): ").upper() #Le pide al ususario que ingrese la placa del vehiculo y la coloca en mayousculas
+            #detectar errores en la placa
+            if len(placa)!=6:#si la longitud de la placa es incorrecta
+                print("Placa no valida vuelva a intentarlo\n") 
+                continue #si detecta un error vuelve al inicio del bucle a pedir el codigo
+            elif placa[0:3].isalpha()==False or placa[3:5].isdigit()==False: #si los caracteres de la placan son incorrectos
+                print("Placa no valida vuelva a intentarlo\n")
+                continue #si detecta un error vuelve al inicio del bucle a pedir el codigo
+            else: #si no hay ningun error al escribir la placa
+                contador_placa=0 #Contador que recorre la lista de vehículos
+                while True:
+                    if len(vehiculos)==0: #Sí no hay vehículos en el parqueadero
+                        break # se rompe el bucle y se continúa con el siguiente
+                        
+                    if placa==vehiculos[contador_placa][0]: #busca en el indice que da el contador placa para ver si la placa ingresada ya esta en una de las placas ya ingresadas
+                        print("El vehiculo ya esta ingresado en el parqueadero, no lo puede ingresar de nuevo\n")
+                        comprobador_placa=1 #comprobador placa pasa a ser verdadero indicando que la placa esta repetida
+                        break #Sí la placa ya está registrada, se rompe el bucle y se continúa
+                    else: #si la placa del indice actual no es la misma que la ingresada
+                        contador_placa+=1 #Incrementa el contador para seguir buscando en la lista de vehículos
+                        if contador_placa>=len(vehiculos): #si el indice que da el contador_placa es mayor o igual que la cantidad de vehiculos registrados
+                            break #sale del bucle de la placa y continua con el siguiente
+            if comprobador_placa==1: #si se detecto una placa repetida vuelve al inicio del bucle
+                continue #Sí la placa ya está, se vuelve a iniciar el bucle para pedir que se ingrese una placa nueva
+            else: #Sí no se detecta una placa repetida
+                break #se rompe este bucle y continua con el siguiente
+        if comprobador_placa==1:  #Sí se detecta una placa repetida
+            continue #se vuelve a iniciar el bucle inicial para preguntar si desea ingresar o retirar un vehiculo
+
+
+
+        #tipo de vehiculo
+        while True:
+            tipo=input("\nIngrese el tipo de vehiculo (Moto, Carro, Camioneta): ").upper()#pide el tipo de vehiculo y lo pone en mayusculas
+            #detectar errores en el tipo de vehiculo
+            if tipo=="MOTO" or tipo=="CARRO" or tipo=="CAMIONETA": #verifica si el tipo que se ingreso es uno de los 3 validos
+                break #si es valido sale del bucle de pedir el tipo del vehiculo
+            else: #detectar si el vehiculo que se ingreso no esta entre los vehiculos validos
+                print("Tipo de vehiculo no valido, vuelva a intentar\n")
+                continue  #regresa al inicio del bucle a pedir el tipo de vehiculo
+            
+        hora_entrada,minutos_entrada=datetime.now().hour,datetime.now().minute
+        if len(str(hora_entrada))==1:
+            hora_entrada=f"0{hora_entrada}"
+        if len(str(minutos_entrada))==1:
+            minutos_entrada=f"0{minutos_entrada}"
+        hora_entrada_=(hora_entrada,minutos_entrada)
+        
+        dia_entrada,mes_entrada=datetime.now().day,datetime.now().month
+        if len(str(dia_entrada))==1:
+            dia_entrada=f"0{dia_entrada}"
+        if len(str(mes_entrada))==1:
+            mes_entrada=f"0{mes_entrada}"
+        fecha_entrada=(dia_entrada,mes_entrada)
+        
+        
+        vehiculos.append((placa,tipo,hora_entrada_,fecha_entrada)) #Agresa los datos que ingresa el usuario (placa, tipo, hora de entrada y fecha de entrada) a la lista de vehiculos
+        print(f"\nLos datos ingresados son:\nPlaca: {placa}\nTipo: {tipo}\nHora de entrada: {hora_entrada_[0]}:{hora_entrada_[1]}\nFecha de entrada: {fecha_entrada[0]}/{fecha_entrada[1]}")
+            
+    #salida
+    elif entrada=="S":
+        if len(vehiculos)!=0: #si hay vehiculos en el parqueadero
+            while True:    
+                placa_salida=input("\nIngrese la placa de su vehiculo para salir: ").upper() #Le pide al usuario que ingrese la placa del vehículo que desea sacar del parqueadero y la coloca en mayúsculas
+                if len(placa_salida)!=6: #longitud de la placa
+                    print("Placa no valida vuelva a intentarlo\n") 
+                    continue #Sí la longitud de la placa es diferente a 6, vuelve al inicio del bucle a pedir la placa
+                elif placa_salida[0:3].isalpha()==False or placa_salida[3:5].isdigit()==False: #ver los caracteres de la placa
+                    print("Placa no valida vuelva a intentarlo\n")
+                    continue #Sí la placa no tiene los caracteres correctos, vuelve al inicio del bucle a pedir la placa
+                else:
+                    break #si no hay errores con la placa sale del bucle de pedir la placa y continua con el siguiente
+            contador=0
+            while True:
+                if vehiculos[contador][0]==placa_salida: #verifica que la placa de salida que ingresó el usuario esté en la lista de vehiculos
+                    hora_salida,minutos_salida=datetime.now().hour,datetime.now().minute
+                    if len(str(hora_salida))==1:
+                        hora_salida=f"0{hora_salida}"
+                    if len(str(minutos_salida))==1:
+                        minutos_salida=f"0{minutos_salida}"
+                    hora_salida_=(hora_salida,minutos_salida)
+        
+                    fecha_salida_dia,fecha_salida_mes=datetime.now().day,datetime.now().month
+                    if len(str(fecha_salida_dia))==1:
+                        fecha_salida_dia=f"0{fecha_salida_dia}"
+                    if len(str(fecha_salida_mes))==1:
+                        fecha_salida_mes=f"0{fecha_salida_mes}"
+                    fecha_salida=(fecha_salida_dia,fecha_salida_mes)
+
+                    hora_minutos_entrada=(int(vehiculos[contador][2][0])*60)+int(vehiculos[contador][2][1]) #Convierte la hora de entrada en minutos para sumarla con los minutos de entrada
+                    hora_minutos_salida=(int(hora_salida)*60)+int(minutos_salida) #Convierte la hora de salida en minutos para sumarla con los minutos de salida y obtener el tiempo total de parqueo de los vehículos en minutos
+                    #mismo mes
+                    if fecha_salida[1]==vehiculos[contador][3][1]: 
+                        dias_parqueo=int(fecha_salida[0])-int(vehiculos[contador][3][0]) #Sirve para calcular la diferencia de días entre la fecha de entrada y la fecha de salida del vehículo, dando así los días de parqueo
+                        if dias_parqueo<0:
+                            print("Datos de salida incorrectos, ingrese los datos nuevamente\n")
+                            continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de salida de nuevo cuando la fecha de salida es menor a la fecha de entrada
+                        else:
+                            horas_parqueo=hora_minutos_salida-hora_minutos_entrada #Calcula la diferencia de horas entre la hora de entrada y la hora de salida del vehículo
+                            if int(vehiculos[contador][3][0])==int(fecha_salida[0]):
+                                if horas_parqueo<0:
+                                    print("Datos de salida incorrectos, ingrese los datos nuevamente\n")
+                                    continue
+                                else:
+                                    horas_parqueo=round(horas_parqueo/60,2) #Pasa el tiempo de parqueo de minutos a horas, y luego el resultado se redondea a 2 decimales
+                                    dias_parqueo*=24 #Convierte los días de parqueo a horas multiplicando por 24
+                                    horas_parqueo+=dias_parqueo #Suma las horas de parqueo con los días de parqueo ya pasados a horas
+                                    if horas_parqueo<1:
+                                        horas_parqueo=1
+                                    total_pagar=round(horas_parqueo,0)*precios[vehiculos[contador][1]] #Calcula el total a pagar por el tiempo de parqueo multiplicando las horas totales de parqueo por el precio del tipo de vehículo que ingresó el usuario
+                                    print(f" Su vehiculo estubo {horas_parqueo} horas en el parqueadero ".center(20,"-"),"\n",f" Debe pagar: {total_pagar}$ ".center(20,"-")) #Imprime el tiempo total de parqueo y el total a pagar por el tiempo de parqueo (los .center son para poner en medio el texto con caracteres de relleno, en este caso guiones)
+                                    historial.append((vehiculos[contador],(total_pagar,hora_salida,fecha_salida))) #Agrega los datos del vehículo, el total a pagar, la hora de salida y la fecha de salida al historial para tener los registros del parqueadero
+                                    vehiculos.remove(vehiculos[contador]) #Elimina el vehículo que salió de la lista de los vehículos en el parqueadero
+                                    break #Rompe el bucle cuando ya se ha terminado de tomar el registro del vehículo que salió del parqueadero
+                            elif int(vehiculos[contador][3][0])>int(fecha_salida[0]):
+                                print("Datos de salida incorrectos, ingrese los datos nuevamente\n")
+                                continue
+                            else:
+                                horas_parqueo=round(horas_parqueo/60,2) #Pasa el tiempo de parqueo de minutos a horas, y luego el resultado se redondea a 2 decimales
+                                dias_parqueo*=24 #Convierte los días de parqueo a horas multiplicando por 24
+                                horas_parqueo+=dias_parqueo #Suma las horas de parqueo con los días de parqueo ya pasados a horas
+                                if horas_parqueo<1:
+                                    horas_parqueo=1
+                                total_pagar=round(horas_parqueo,0)*precios[vehiculos[contador][1]] #Calcula el total a pagar por el tiempo de parqueo multiplicando las horas totales de parqueo por el precio del tipo de vehículo que ingresó el usuario
+                                print(f" Su vehiculo estubo {horas_parqueo} horas en el parqueadero ".center(20,"-"),"\n",f" Debe pagar: {total_pagar}$ ".center(20,"-")) #Imprime el tiempo total de parqueo y el total a pagar por el tiempo de parqueo (los .center son para poner en medio el texto con caracteres de relleno, en este caso guiones)
+                                historial.append((vehiculos[contador],(total_pagar,hora_salida,fecha_salida))) #Agrega los datos del vehículo, el total a pagar, la hora de salida y la fecha de salida al historial para tener los registros del parqueadero
+                                vehiculos.remove(vehiculos[contador]) #Elimina el vehículo que salió de la lista de los vehículos en el parqueadero
+                                break #Rompe el bucle cuando ya se ha terminado de tomar el registro del vehículo que salió del parqueadero
+
+
+                    elif int(fecha_salida[1])>int(vehiculos[contador][3][1]): #Verifica sí la fecha de salida es mayor a la fecha de entrada del vehículo
+                        contador_dias=vehiculos[contador][3][1] #Obtiene el mes de la fecha de entrada del vehículo
+                        dias_parqueo=0 
+                        while int(contador_dias)<=int(fecha_salida[1]): 
+                            dias_parqueo+=meses[contador_dias]  #Mientras el mes de la fecha de entrada sea menor o igual al mes de la fecha de salida, se suman los días de parqueo
+                            if int(contador_dias)<10:
+                                contador_dias=f"{0}{int(contador_dias)+1}" #Agrega un 0 antes del número del mes sí es menor a 10 para que tenga el formato correcto 
+                            else:
+                                contador_dias=int(contador_dias)+1
+                        dias_parqueo-=meses[fecha_salida[1]]-int(fecha_salida[0]) #Resta los días del mes de la fecha de salida menos el día de la fecha de salida ingresada por el usuario
+                        dias_parqueo-=int(vehiculos[contador][3][0]) #Resta el día de la fecha de entrada del vehículo a los días de parqueo calculados
+                        dias_parqueo*=24 #Convierte los días de parqueo a horas multiplicando por 24
+                        if dias_parqueo<0:
+                            print("Datos de salida incorrectos, ingrese los datos nuevamente\n")
+                            continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de salida de nuevo sí la fecha de salida es menor a la fecha de entrada
+                        else:
+                            hora_minutos_entrada=(int(vehiculos[contador][2][0])*60)+int(vehiculos[contador][2][1]) #Convierte la hora de entrada en minutos para sumarla con los minutos de entrada
+                            hora_minutos_salida=(int(hora_salida)*60)+int(minutos_salida) #Convierte la hora de salida en minutos para sumarla con los minutos de salida y obtener el tiempo total de parqueo de los vehículos en minutos
+                            horas_parqueo=hora_minutos_salida-hora_minutos_entrada #Calcula la diferencia de horas entre la hora de entrada y la hora de salida del vehículo
+                            if horas_parqueo<0:
+                                print("Datos de salida incorrectos, ingrese los datos nuevamente\n")
+                                continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese los datos de salida de nuevo cuando se ingresan de manera incorrecta
+                            else:
+                                horas_parqueo=round(horas_parqueo/60,2) #Pasa el tiempo de parqueo de minutos a horas, y luego el resultado es redondeado a 2 decimales
+                                horas_parqueo+=dias_parqueo #Suma las horas de parqueo con los días de parqueo ya pasados a horas
+                                if horas_parqueo<1:
+                                    horas_parqueo=1
+                                total_pagar=round(horas_parqueo,0)*precios[vehiculos[contador][1]] #Calcula el total a pagar por el tiempo de parqueo multiplicando las horas totales de parqueo por el precio del tipo de vehículo que ingresó el usuario
+                                print(f" Su vehiculo estubo {horas_parqueo} horas en el parqueadero ".center(20,"-"),"\n",f" Debe pagar: {total_pagar}$ ".center(20,"-")) #Imprime el tiempo total de parqueo y el total a pagar por el tiempo de parqueo (los .center son para poner en medio el texto con caracteres de relleno, en este caso guiones)
+                                historial.append((vehiculos[contador],(total_pagar,hora_salida,fecha_salida))) #Agrega los datos del vehículo, el total a pagar, la hora de salida y la fecha de salida al historial para tener los registros del parqueadero
+                                vehiculos.remove(vehiculos[contador]) #Elimina el vehículo que salió de la lista de los vehículos en el parqueadero
+                                break #Rompe el bucle cuando ya se ha terminado de tomar el registro del vehículo que salió del parqueadero
+                                
+                    elif int(fecha_salida[1])<int(vehiculos[contador][3][1]):
+                        print("Datos de salida incorrectos, ingrese los datos nuevamente\n")
+                        continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese los datos de salida de nuevo cuando la fecha de salida es menor a la fecha de entrada del vehículo
+                else:
+                    contador+=1
+                    if contador>=len(vehiculos):
+                        print("El vehiculo no esta registrado en el parqueadero\n")
+                        break #Sí no se encuentra la placa del vehículo en la lista de vehículos, se le notificará al usuario y se romperá el bucle 
+        else:
+            print("No hay vehiculos en el parqueadero\n") #Sí no hay vehículos en el parqueadero, se le notificará al usuario
+
+    elif entrada=="X": #Sí el usuario ingresa 'X', se le mostrarán las opciones del programa
+        print("\n\n")
+        print("Opciones del programa".center(20,"-")) #Imprime el título centrado con guiones
+        print("\ningrese 1 para ver las vehiculos adentro del parqueadero\nIngrese 2 para ver el reporte de ingresos por un dia\nIngrese 3 para volver al menu inicial\nIngrese 4 para salir del programa")
+        ajustes=int(input("Ingrese la accion que desee realizar: ")) #Pide al usuario que ingrese una opción del menú de ajustes 
+        if ajustes==1:
+            if len(vehiculos)!=0: #Cuenta la cantidad de vehículos en el parqueadero
+                contador_vehiculos=0 #Contador que ayuda a recorrer la lista de vehículo
+                print("\nLos vehiculos en el parqueadero actualmente son:")
+                while len(vehiculos)>contador_vehiculos: #Mientras la cantidad de vehículos sea mayor al contador, se imprimirá la información de los vehículos
+                    print("".center(100,"=")) #Imprime una línea de separación con guiones para que se vea más ordenado
+                    print(f"{(vehiculos[contador_vehiculos][1]).lower()} con placa {vehiculos[contador_vehiculos][0]}\n    Hora de entrada: {vehiculos[contador_vehiculos][2][0]}:{vehiculos[contador_vehiculos][2][1]}\n    Fecha de entrada: {vehiculos[contador_vehiculos][3][0]}/{vehiculos[contador_vehiculos][3][1]}\n") #Imprime los datos de cada vehículo que hay en el parqueadero, donde se accede a los datos de la lista de vehículos con el contador que la recorre
+                    print("".center(100,"="))
+                    contador_vehiculos+=1 #Incrementa el contador para seguir recorriendo la lista de vehículos
+                print(f"\n\n Hay un total de {len(vehiculos)} en el interior del parqueadero actualmente\n") #Imprime la cantidad de vehículos que hay en el parqueadero
+            else:
+                print("\nNo hay ningun vehiculo en el parqueadero") #Sí la cantidad de vehículos es igual a 0, muestra un mensaje indicando que no hay vehículos en el parqueadero 
+        elif ajustes==2:
+            while True:
+                while True:#bucle para pedir la fecha
+                    try:#Intenta un bloque de codigo para pedir la fecha
+                        fecha_ajustes_dia,fecha_ajustes_mes=input("\nIngrese la fecha para el reporte de ingresos diario (DD/MM): ").split("/") #Combina la fecha de ajustes en una variable, donde se divide el dato del input con un .split en 2 datos diferentes, donde se les asigna a las variables nombradas
+                        if fecha_ajustes_dia.isdigit() and fecha_ajustes_mes.isdigit():#si las variables son un numero
+                            break#sale del bucle para pedir la hora
+                        else:
+                            print("Por favor ingrese una fecha valida")
+                    except ValueError:#si en alguna parte del bloque de codigo en el try da un ValueError se ejecuta el bloque de codigo del except
+                        print("Por favor ingrese la informacion en el formato pedido")#indica el error
+                if len(fecha_ajustes_dia)>2 or len(fecha_ajustes_dia)<1 or len(fecha_ajustes_mes)>2 or len(fecha_ajustes_mes)<1: #Cuenta los dígitos de la fecha de ajustes para asegurarse de que estén bien ingresados los datos
+                    print("Fecha mal ingresada, tiene que ser en formato DD/MM, vuelva a intentarlo\n")
+                    continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de ajustes de nuevo con el formato indicado
+                if len(fecha_ajustes_dia)==1:
+                    fecha_ajustes_dia=f"{0}{fecha_ajustes_dia}" #Sí los dígitos del día de la fecha de ajustes son igual a 1, se le agregará un 0 antes de imprimir el dígito que ingrese el usuario (ej: pasa de 8 a 08 -> 08/12)
+                if len(fecha_ajustes_mes)==1:
+                    fecha_ajustes_mes=f"{0}{fecha_ajustes_mes}" #Sí los dígitos del mes de la fecha de ajustes son igual a 1, se le agregará un 0 antes de imprimir el dígito que ingrese el usuario (ej: pasa de 5 a 05 -> 23/05)
+            
+                #meses
+                if int(fecha_ajustes_mes)<=12 and int(fecha_ajustes_mes)>=1: #Verifica que el número del mes ingresado por el usuario esté entre el 1 y el 12
+                    if fecha_ajustes_mes=="01" or fecha_ajustes_mes=="03" or fecha_ajustes_mes=="05" or fecha_ajustes_mes=="07" or fecha_ajustes_mes=="08" or fecha_ajustes_mes=="10" or fecha_ajustes_mes=="12": #Verifica que el mes ingresado por el usuario sea uno de los que tienen 31 días
+                        if int(fecha_ajustes_dia)>31 or int(fecha_ajustes_dia)<1:
+                            print("Fecha incorrecta, el mes tiene 31 dias, vuelva a intentarlo\n")
+                            continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de nuevo cuando ingresa un mes de 31 días y el día que ingresa es mayor a 31 o menor a 1 (negativo)
+                        else:
+                            break #Rompe el bucle cuando el usuario ingresa la fecha correctamente
+                    elif fecha_ajustes_mes=="04" or fecha_ajustes_mes=="06" or fecha_ajustes_mes=="09" or fecha_ajustes_mes=="11": #Verifica que el mes ingresado por el usuario sea uno de los que tienen 30 días
+                        if int(fecha_ajustes_dia)>30 or int(fecha_ajustes_dia)<1:
+                            print("Fecha incorrecta, el mes tiene 30 dias, vuelva a intentar\n")
+                            continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de nuevo cuando ingresa un mes de 30 días y el día que ingresa es mayor a 30 o menor a 1 (negativo)
+                        else:
+                            break #Rompe el bucle cuando el usuario ingresa la fecha correctamente
+                    elif fecha_ajustes_mes=="02": #Verifica que el mes ingresado por el usuario sea Febrero (posibilidad de año biciesto)
+                        if int(fecha_ajustes_dia)>29 or int(fecha_ajustes_dia)<1:
+                            print("Fecha incorrecta, el mes tiene maximo 29 dias, vuelva a intentar\n")
+                            continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de nuevo cuando ingresa el mes 2 (febrero) y el día que ingresa es mayor a 29 o menor a 1 (negativo)
+                        else:
+                            break #Rompe el bucle cuando el usuario ingresa la fecha correctamente
+                else:
+                    print("fecha incorrecta, el mes no existe, vuelva a intentar\n")
+                    continue #Vuelve a iniciar el bucle, pidiéndole al usuario que ingrese la fecha de nuevo cuando ingresa un mes que no existe
+            fecha_ajustes=(fecha_ajustes_dia,fecha_ajustes_mes) 
+            dia_reporte=[]
+            ajustes_dia_reporte=0
+            while ajustes_dia_reporte<len(historial): #Recorre el historial de vehículos para buscar los reportes del día especificado
+                if historial[ajustes_dia_reporte][1][2]==fecha_ajustes: #Verifica que alguna fecha del historial de reportes coincida con la fecha ingresada por el usuario
+                    dia_reporte.append(historial[ajustes_dia_reporte][1][0]) #Agrega el total a pagar del reporte del día especificado a la lista
+                    ajustes_dia_reporte+=1 #Incrementa el contador para seguir buscando en el historial de reportes           
+                else:
+                    ajustes_dia_reporte+=1 #Incrementa el contador para seguir buscando en el historial de reportes
+            if len(dia_reporte)==0:
+                print("\nEse dia no hubieron ingresos en el parqueadero\n") #Sí no hay reportes del día especificado, se le notificará al usuario
+            else:
+                print(f"\nEl total de los ingresos del dia: {fecha_ajustes[0]}/{fecha_ajustes[1]} son:\n {sum(dia_reporte)}$") #Imprime el total de los ingresos del día especificado sumando todos los reportes del historial que coincidan con la fecha ingresada por el usuario
+
+        elif ajustes==3:
+            continue #Sí el usuario ingresa 3, se vuelve al menú inicial del programa para que pueda realizar otra acción
+
+        elif ajustes==4:
+            print("Se cierra el parqueadero".center(50,"="),"\n\n", f"Programa finalizado".center(50," "))
+            break #Sí el usuario ingresa 4, se cierra el programa y se imprime un mensaje que indica que el parqueadero se ha cerrado y el programa ha finalizado
+        else:
+            print("Accion no valida, ingrese otra\n")
+            continue #Sí el usuario ingresa una opción que no está en el menú de ajustes, se le notificará y se le pedirá que ingrese una opción válida
+    else:
+        print("\nAccion no valida, ingrese una valida\n")
+        continue
+    
