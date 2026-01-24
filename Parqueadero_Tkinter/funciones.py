@@ -6,6 +6,7 @@ from tkinter import ttk
 import tkcalendar
 
 
+
 def cerrar_ventana(ventana: tk.Tk) -> None:
     ventana.destroy()
     
